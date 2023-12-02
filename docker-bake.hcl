@@ -1,4 +1,11 @@
-variable version {
+variable os {
+	default = {
+		"name" = "debian"
+		"version" = "12"
+	}
+}
+
+variable tool_versions {
 	default = {
 	}
 }
@@ -36,6 +43,8 @@ target "default" {
 	context = "."
 	platforms = platforms
 	args = {
+		"OS" = os.name
+		"OS_VERSION" = os.version
 	}
 	tags = [for tag in tags : "${registry != "" ? "${registry}/" : ""}${image}:${tag}"]
 }
