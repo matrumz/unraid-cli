@@ -1,7 +1,7 @@
 variable os {
 	default = {
-		"name" = "debian"
-		"version" = "12"
+		name = "ubuntu"
+		version = "22.04"
 	}
 }
 
@@ -38,6 +38,18 @@ variable "revision" {
 	default = ""
 }
 
+variable "user_password" {
+	// sensitive = true
+	default = "pass"
+}
+
+variable "bootstrap_repository" {
+	default = {
+		repository = "matrumz/system-bootstrap-dotbot"
+		branch = "master"
+	}
+}
+
 target "default" {
 	dockerfile = "Dockerfile"
 	context = "."
@@ -45,6 +57,9 @@ target "default" {
 	args = {
 		"OS" = os.name
 		"OS_VERSION" = os.version
+		"USER_PASSWORD" = user_password
+		"BOOTSTRAP_REPO" = bootstrap_repository.repository
+		"BOOTSTRAP_BRANCH" = bootstrap_repository.branch
 	}
 	tags = [for tag in tags : "${registry != "" ? "${registry}/" : ""}${image}:${tag}"]
 }
