@@ -75,7 +75,7 @@ USER root
 RUN <<DOCKERFILE_EOF
 export DEBIAN_FRONTEND=noninteractive
 # require password for sudo
-chmod a+w /etc/sudoers.d/unraid-cli
+chmod u+w /etc/sudoers.d/unraid-cli
 sudo echo "unraid-cli ALL=(ALL) ALL" > /etc/sudoers.d/unraid-cli
 chmod a-w /etc/sudoers.d/unraid-cli
 DOCKERFILE_EOF
