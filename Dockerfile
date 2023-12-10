@@ -65,8 +65,11 @@ WORKDIR /home/unraid-cli
 COPY --from=dotfiles --chown=unraid-cli:unraid-cli /out/.system-bootstrap /home/unraid-cli/.system-bootstrap
 RUN <<DOCKERFILE_EOF
 export DEBIAN_FRONTEND=noninteractive
+# USER is needed for bootstrap to work, but it is not set in the docker build
+export USER=unraid-cli
+# Unraid docker gid
+export DOCKER_GID=281
 cd ~/.system-bootstrap
-set -x
 ./bootstrap --profiles profiles/unraid-cli
 DOCKERFILE_EOF
 

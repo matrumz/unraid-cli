@@ -6,11 +6,14 @@ services:
     image: devola:5000/unraid-cli:latest
     pull_policy: always
     privileged: true
+    group_add:
+    - docker
     volumes:
     # Docker socket
     - type: bind
       source: /var/run/docker.sock
       target: /var/run/docker.sock
+
     # Unraid mounts
     - type: bind
       source: /mnt
