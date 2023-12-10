@@ -3,7 +3,7 @@ name: unraid-cli
 services:
 
   cli:
-    images: devola:5000/unraid-cli:latest
+    image: devola:5000/unraid-cli:latest
     pull_policy: always
     privileged: true
     volumes:
