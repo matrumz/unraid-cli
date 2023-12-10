@@ -27,8 +27,8 @@
       ],
       "dependsOrder": "parallel",
       "type": "shell",
-      // "command": "docker buildx bake ${input:imageDestination} -f docker-bake.hcl -f docker-bake.override.hcl ${input:bakeTargets}",
-      "command": "docker buildx bake --progress=plain ${input:imageDestination} -f docker-bake.hcl -f docker-bake.override.hcl ${input:bakeTargets}",
+      "command": "docker buildx bake ${input:imageDestination} -f docker-bake.hcl -f docker-bake.override.hcl ${input:bakeTargets}",
+      // "command": "docker buildx bake --progress=plain ${input:imageDestination} -f docker-bake.hcl -f docker-bake.override.hcl ${input:bakeTargets}",
       "options": {"shell": {"executable": "bash", "args": ["-c"]}}, // specifing bash prevents incompatbility issues if using other shells
       "presentation": {
         "echo": true,
