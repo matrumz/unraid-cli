@@ -1,0 +1,21 @@
+name: unraid-cli
+
+services:
+
+  cli:
+    images: devola:5000/unraid-cli:latest
+    pull_policy: always
+    privileged: true
+    volumes:
+    # Docker socket
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+    # Unraid mounts
+    - type: bind
+      source: /mnt
+      target: /mnt
+    # Unraid system
+    - type: bind
+      source: /boot
+      target: /boot
