@@ -20,6 +20,21 @@ RUN git clone https://github.com/$BOOTSTRAP_REPO.git .system-bootstrap
 # TEMP: use working branch
 RUN cd .system-bootstrap && git checkout $BOOTSTRAP_BRANCH
 
+### DISCORD.SH #################################################################
+FROM ${OS}:${OS_VERSION} AS discord_sh
+ARG DISCORD_SH_VERSION
+SHELL ["/bin/sh", "-e", "-c"]
+WORKDIR /out
+RUN <<DOCKERFILE_EOF
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y --no-install-recommends \
+	ca-certificates \
+	curl
+curl -L -o discord.sh https://github.com/fieu/discord.sh/releases/download/$DISCORD_SH_VERSION/discord.sh
+chmod a+x discord.sh
+DOCKERFILE_EOF
+
 ### FINAL IMAGE ################################################################
 FROM ${OS}:${OS_VERSION}
 SHELL ["/bin/sh", "-e", "-c"]
@@ -35,6 +50,7 @@ apt-get install -y --no-install-recommends \
 	curl \
 	git \
 	gzip \
+	jq \
 	python3 \
 	python3-pip \
 	ssh-client \
@@ -82,6 +98,9 @@ chmod u+w /etc/sudoers.d/unraid-cli
 sudo echo "unraid-cli ALL=(ALL) ALL" > /etc/sudoers.d/unraid-cli
 chmod a-w /etc/sudoers.d/unraid-cli
 DOCKERFILE_EOF
-USER unraid-cli:unraid-cli
 
+COPY src/rootfs /
+COPY --from=discord_sh /out/discord.sh /usr/local/bin/discord.sh
+
+USER unraid-cli:unraid-cli
 ENTRYPOINT ["/bin/bash"]

@@ -7,6 +7,7 @@ variable os {
 
 variable tool_versions {
 	default = {
+		discord_sh = "v2.0.0"
 	}
 }
 
@@ -60,6 +61,7 @@ target "default" {
 		"USER_PASSWORD" = user_password
 		"BOOTSTRAP_REPO" = bootstrap_repository.repository
 		"BOOTSTRAP_BRANCH" = bootstrap_repository.branch
+		"DISCORD_SH_VERSION" = tool_versions.discord_sh
 	}
 	tags = [for tag in tags : "${registry != "" ? "${registry}/" : ""}${image}:${tag}"]
 }

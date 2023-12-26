@@ -1,4 +1,3 @@
-
 # Thumbnail images for Discord messages
 unraid_discord_thumbnail_alert="https://craftassets.unraid.net/uploads/discord/notify-alert.png"
 unraid_discord_thumbnail_normal="https://craftassets.unraid.net/uploads/discord/notify-normal.png"
