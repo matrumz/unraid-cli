@@ -21,3 +21,7 @@ services:
     - type: bind
       source: /boot
       target: /boot
+    # Local volumes
+    - type: bind
+      source: ./volumes/ssh
+      target: /root/.ssh
