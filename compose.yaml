@@ -24,4 +24,4 @@ services:
     # Local volumes
     - type: bind
       source: ./volumes/ssh
-      target: /root/.ssh
+      target: /home/unraid-cli/.ssh
