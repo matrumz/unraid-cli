@@ -9,7 +9,7 @@ services:
     group_add:
     - docker
     labels:
-      net.unraid.docker.icon: https://icons.iconarchive.com/icons/blackvariant/button-ui-system-apps/256/Terminal-icon.p
+      net.unraid.docker.icon: https://icons.iconarchive.com/icons/blackvariant/button-ui-system-apps/256/Terminal-icon.png
     volumes:
     # Docker socket
     - type: bind
