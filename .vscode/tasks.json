@@ -1,0 +1,59 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Touch Bake Local Files",
+      "hide": true,
+      "type": "shell",
+      "command": "touch docker-bake.override.hcl",
+      "presentation": {
+        "echo": true,
+        "reveal": "never",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "group": "group-bake-prep",
+        "clear": true,
+        "close": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build image",
+      "dependsOn": [
+        "Touch Bake Local Files",
+      ],
+      "dependsOrder": "parallel",
+      "type": "shell",
+      "command": "docker buildx bake ${input:imageDestination} -f docker-bake.hcl -f docker-bake.override.hcl ${input:bakeTargets}",
+      "options": {"shell": {"executable": "bash", "args": ["-c"]}}, // specifing bash prevents incompatbility issues if using other shells
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true,
+        "close": false
+      },
+      "problemMatcher": []
+    },
+  ],
+  "inputs": [
+    {
+      "id": "imageDestination",
+      "description": "How should images be stored?",
+      "default": "--load",
+      "type": "pickString",
+      "options": ["--load", "--push"] // load/push are shorthands. Can't do both with this notation. See link for ways to combine: https://docs.docker.com/engine/reference/commandline/buildx_bake/
+    },
+    {
+      "id": "bakeTargets",
+      "description": "Enter a space-separated list of targets to build. Leave blank to build all.",
+      "default": "",
+      "type": "promptString",
+    }
+  ]
+}
