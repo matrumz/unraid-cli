@@ -1,0 +1,29 @@
+name: unraid-cli
+
+services:
+
+  cli:
+    # Image omitted for security reasons -- include an additional compose.secret.yaml file
+    group_add:
+      - docker
+    labels:
+      net.unraid.docker.icon: https://icons.iconarchive.com/icons/blackvariant/button-ui-system-apps/256/Terminal-icon.png
+    privileged: true
+    pull_policy: always
+    volumes:
+      - # Docker socket
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        type: bind
+      - # Unraid mounts
+        source: /mnt
+        target: /mnt
+        type: bind
+      - # Unraid system
+        source: /boot
+        target: /boot
+        type: bind
+      - # Local volumes
+        source: ./volumes/ssh
+        target: /home/unraid-cli/.ssh
+        type: bind
